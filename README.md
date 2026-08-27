@@ -31,20 +31,22 @@ repeating path, which gives better averaging than a single axis.
 
 ## Specs
 
-<!-- TODO: fill these in from your actual build. Delete rows that don't apply. -->
+This is a stock OpenClino build, so these are the upstream design's figures.
 
 | | |
 |---|---|
 | Axes | 2 (nested inner/outer frame) |
-| Rotation range | *TODO — e.g. 0.5–10 RPM per axis* |
-| Sample chamber | *TODO — e.g. 50 mL falcon tube / 35 mm petri dish* |
-| Payload capacity | *TODO* |
-| Controller | *TODO — e.g. Arduino Uno + CNC shield* |
-| Motors | *TODO — e.g. 2× NEMA 17 steppers* |
-| Power | *TODO — e.g. 12 V 2 A* |
-| Frame | 3D printed (PLA/PETG) + skateboard bearings |
-| Continuous runtime tested | *TODO — how long did you actually run it?* |
-| Build cost | *TODO* |
+| Modes | Continuous clinorotation, or random positioning (RPM) via SD path following |
+| Rotation range | Typically 2–4 RPM per axis; firmware caps moves at 10 RPM by default |
+| Effective resolution | 3200 microsteps/rev × 3.125:1 (X) — see [`firmware/README.md`](firmware/README.md) |
+| Controller | Arduino (any board — uses digital pins 2–8 plus hardware SPI) |
+| Motors | 2× NEMA 17, 0.42 Nm, driven by A4988 or TMC2208 at 16× microstepping |
+| Frame | 3D printed (PLA/PETG) + 20×20 mm aluminium extrusion + 12 skateboard bearings |
+| Sample chamber | Not specified by the design — left to the builder |
+| Payload capacity | Not characterised upstream |
+| Power | Sized to your motors and drivers; not specified upstream |
+| Build cost | ~£100 (upstream estimate) |
+| Continuous runtime tested | 100+ hours upstream. Not yet run on this build |
 
 ## Repository layout
 
@@ -69,16 +71,17 @@ See [`docs/BOM.md`](docs/BOM.md).
 
 ## Printing the parts
 
-<!-- TODO -->
-Print settings used:
+Upstream's print settings, used unmodified (an Ender 3 in upstream's case):
 
 | Setting | Value |
 |---|---|
-| Material | *TODO* |
-| Layer height | *TODO* |
-| Infill | *TODO* |
-| Supports | *TODO* |
-| Total print time | *TODO* |
+| Material | PLA works; PETG preferred |
+| Infill | 20% |
+| Supports | `m2y` only |
+| Brim | Preferred |
+
+Expect to sand edges depending on stringing and over-extrusion. Full part list with quantities is in
+[`3d_files/README.md`](3d_files/README.md).
 
 Files live in [`3d_files/`](3d_files/), copied unmodified from upstream — nothing was rescaled,
 reinforced, or redesigned. Upstream suggests PLA works but prefers PETG.
@@ -110,10 +113,12 @@ See [`firmware/README.md`](firmware/README.md) for the full command set.
 
 ## Results
 
-<!-- TODO: this is the section that makes the repo worth showing off. -->
-*What did you actually run on it? Include: how long it ran unattended, RPM stability, anything that
-failed, and — if you ran a biological sample — what you observed versus a static control. Photos and
-plots go a long way here.*
+**Nothing run yet.** The machine is documented here but no endurance run or biological sample has
+been recorded on this build.
+
+When there is something to report, this section should cover: how long it ran unattended, RPM
+stability, anything that failed, and — for a biological sample — what was observed against a static
+control. For reference, upstream reports a minimum of 100 hours of continuous operation.
 
 ## What I changed from the upstream design
 
@@ -123,7 +128,25 @@ redesigned.
 
 ## Known issues / next steps
 
-<!-- TODO -->
+Nothing found on this build yet — it hasn't been run. Known constraints inherited from the design:
+
+- **Y calibration is per-build.** `yCorrection` depends on friction in your specific machine, so the
+  shipped `1.5` will not be right until you re-run `calibrate_y_correction()`. See
+  [`docs/ASSEMBLY.md`](docs/ASSEMBLY.md).
+- **No defined sample chamber.** The design stops at the rotating frame; sample mounting is left to
+  the builder.
+- **Belt clearance is tight.** The short Y belt and the long `m2y` belt nearly touch — upstream calls
+  this the tightest tolerance in the build.
+- **Partial gravity needs a computer in the loop.** The Arduino can't compute the path at runtime, so
+  paths are generated in Python and read from an SD card.
+
+Next steps:
+
+- [ ] Print and assemble
+- [ ] Run the Y-axis calibration and record the resulting `yCorrection`
+- [ ] First unattended endurance run
+- [ ] Decide on a sample chamber and how it mounts
+- [ ] Photograph the build for the sections above
 
 ## Attribution
 

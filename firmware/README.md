@@ -31,7 +31,10 @@ arduino-cli compile --fqbn <your-fqbn> firmware/openclino
 arduino-cli upload  --fqbn <your-fqbn> -p <your-port> firmware/openclino
 ```
 
-<!-- TODO: replace <your-fqbn> and <your-port> with the board and port you actually used. -->
+Upstream leaves the board choice open — the sketch only needs digital pins 2–8 plus hardware
+SPI, so most Arduinos work.
+
+<!-- Fill in once flashed: the exact --fqbn and port used, so this is copy-pasteable. -->
 
 ## Commands
 
