@@ -49,12 +49,19 @@ repeating path, which gives better averaging than a single axis.
 ## Repository layout
 
 ```
-3d_files/    STL / 3MF print files (or a pointer to upstream's)
-firmware/    Microcontroller code that drives the two axes
-hardware/    Wiring diagram, pinout, notes on the electronics
-docs/        Bill of materials, assembly notes, build log
-images/      Photos and video of the build and of it running
+3d_files/         .3mf print files for all 10 printed parts
+firmware/
+  openclino/        Main Arduino sketch, plus partial-gravity path generators
+  clinostat-ui/     Optional LVGL touchscreen UI
+hardware/         Pinout and notes on the electronics
+docs/             Bill of materials, assembly notes, build log
+images/           Photos and video of the build and of it running
+UPSTREAM.md       Exactly what was copied from upstream, and from which commit
+LICENSE.upstream  Upstream OpenClino MIT notice
 ```
+
+The contents of `firmware/` and `3d_files/` are copied unmodified from upstream — see
+[`UPSTREAM.md`](UPSTREAM.md).
 
 ## Bill of materials
 
@@ -73,7 +80,8 @@ Print settings used:
 | Supports | *TODO* |
 | Total print time | *TODO* |
 
-Files live in [`3d_files/`](3d_files/). *TODO: note any parts you rescaled, reinforced, or redesigned.*
+Files live in [`3d_files/`](3d_files/), copied unmodified from upstream — nothing was rescaled,
+reinforced, or redesigned. Upstream suggests PLA works but prefers PETG.
 
 ## Assembly
 
@@ -82,16 +90,20 @@ Step-by-step notes are in [`docs/ASSEMBLY.md`](docs/ASSEMBLY.md). Wiring and pin
 
 ## Firmware and running it
 
-<!-- TODO: replace with your actual flashing instructions and API. -->
+Open [`firmware/openclino/openclino.ino`](firmware/openclino/openclino.ino) in the Arduino IDE and
+upload, or use `arduino-cli`:
 
 ```
-TODO: how to flash
+arduino-cli compile --fqbn <your-fqbn> firmware/openclino
+arduino-cli upload  --fqbn <your-fqbn> -p <your-port> firmware/openclino
 ```
 
-Start clinorotation with both axes turning at different speeds:
+The motors stay disabled until the button on pin 2 reads HIGH. Which routine that button runs is
+chosen by uncommenting one call in `loop()` — `follow_path()` is active as shipped, so uncomment
+`spin_continuous(...)` instead for plain clinorotation:
 
-```python
-spin_continuous(3, 4)   # outer axis 3 RPM, inner axis 4 RPM
+```cpp
+spin_continuous(3, 4);   // X (outer) axis 3 RPM, Y (inner) axis 4 RPM
 ```
 
 See [`firmware/README.md`](firmware/README.md) for the full command set.
@@ -105,8 +117,9 @@ plots go a long way here.*
 
 ## What I changed from the upstream design
 
-<!-- TODO: even small deviations are worth listing — part substitutions, a reprinted bracket,
-     a firmware tweak. If you built it stock, say so. -->
+Nothing — this is a stock build. The firmware and print files here are byte-for-byte copies of
+upstream at the commit recorded in [`UPSTREAM.md`](UPSTREAM.md), and no part was substituted or
+redesigned.
 
 ## Known issues / next steps
 
