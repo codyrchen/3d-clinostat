@@ -4,13 +4,6 @@ A 3D-printed, two-axis clinostat (random positioning machine) that simulates mic
 biological samples by continuously rotating them so that the gravity vector averages toward zero over
 time. Built from off-the-shelf parts and a 3D printer — no machining required.
 
-> **Credit where it's due.** This build is based on the open-source
-> [**OpenClino**](https://github.com/wahabk/Clinostat) project by [wahabk](https://github.com/wahabk),
-> which is itself derived from European Space Agency clinostat research. The mechanical design and
-> firmware originate there and are used under the MIT license. This repository documents *my build* —
-> the parts I sourced, the problems I hit, the changes I made, and how it performed.
-> If you want the canonical design files, go to the upstream project first.
-
 <!-- TODO: replace with a real photo of your build. A hero image sells this repo more than any paragraph. -->
 <p align="center">
   <img src="images/hero.jpg" alt="Assembled clinostat" width="600">
