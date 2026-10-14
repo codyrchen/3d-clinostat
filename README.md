@@ -104,21 +104,6 @@ spin_continuous(3, 4);   // X (outer) axis 3 RPM, Y (inner) axis 4 RPM
 
 See [`firmware/README.md`](firmware/README.md) for the full command set.
 
-## Results
-
-**Nothing run yet.** The machine is documented here but no endurance run or biological sample has
-been recorded on this build.
-
-When there is something to report, this section should cover: how long it ran unattended, RPM
-stability, anything that failed, and — for a biological sample — what was observed against a static
-control. For reference, upstream reports a minimum of 100 hours of continuous operation.
-
-## What I changed from the upstream design
-
-Nothing — this is a stock build. The firmware and print files here are byte-for-byte copies of
-upstream at the commit recorded in [`UPSTREAM.md`](UPSTREAM.md), and no part was substituted or
-redesigned.
-
 ## Known issues / next steps
 
 Nothing found on this build yet — it hasn't been run. Known constraints inherited from the design:
@@ -133,22 +118,6 @@ Nothing found on this build yet — it hasn't been run. Known constraints inheri
 - **Partial gravity needs a computer in the loop.** The Arduino can't compute the path at runtime, so
   paths are generated in Python and read from an SD card.
 
-Next steps:
-
-- [ ] Print and assemble
-- [ ] Run the Y-axis calibration and record the resulting `yCorrection`
-- [ ] First unattended endurance run
-- [ ] Decide on a sample chamber and how it mounts
-- [ ] Photograph the build for the sections above
-
-## Attribution
-
-- **Upstream design:** [OpenClino](https://github.com/wahabk/Clinostat) by wahabk — MIT licensed.
-  Cite the Zenodo release for research use: https://doi.org/10.5281/zenodo.18448825
-- The upstream project derives from published ESA clinostat research; see its README and CHANGELOG
-  for the primary references, including the time-averaged simulated partial gravity work.
-
 ## License
 
-MIT — see [LICENSE](LICENSE). The upstream OpenClino copyright is retained alongside mine, since this
-build derives from that project.
+MIT 
